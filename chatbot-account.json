@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "paginabot-qfkf",
+  "private_key_id": "b29de722f6c79e19a29492843481a21b3c44e194",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC/mHJL/Eol1mXF\neXSbSFOTHXYb9oh57aQv///Qi7ca/uFaFWvXQMkXTPHubdfcZfH2FgkBmv/+IpUW\n0y6tVqAJaBuNNQGIeyFcWHN3bW/F6qQbwSE0JqEEHaQJdS2DZcuLc1dKzvvjTr2N\nD+dlbsWbKVb24eU7O/o/DRWRjsLkXt+TZ1kiVPdjJFR1GTVZm9/nadCY9S91DUcm\nzI+oXxaIgJbjLRC/KIdWAmMjlOpcgfaib7t7W2Y1RK1YyGAd6rrAYEhN2vD3U2v9\noQXz1SM+vcZb4erhuVopQx5bQHv+OJhRgNCLfUwhKgkUZ6hSc7eFSUr2whWk7pIr\ny8SlYPsZAgMBAAECggEAMyPo1jloPUNF9PjfVBdxH2KMxRgAA7OX0KwfRzYT0OPZ\nmOcA2vrS8iI6rW6qYIzhkdL94mzSCa6HZwlFe0UVAI3GVOGiICDlnbWKVIVkgUqJ\nNVNOnpH1Bpk20MNzO5BvTTCjSzeGanz5AW8OT7fKjQjyyoEvY6k1uaCvciPOB5CJ\nBxmEQniR+kuSAncjqGVIwio/jhvPL4eF3GWaQ/eL5gL5hEqDjOWLM3aapqY/2fgb\n20XD8vMIR/SKXDVxj1VycWah4Rqu/+SAz//HLnCvz0zQR/ndXEy840wQxsoGgo+G\n2UR82mVMWqpSbboo45fmLacTvqSqtv70ptOFt+Ae9QKBgQDk/96AuiOchAMtkTv1\nSoFIhC/kNQ7dTlCCXStCUgrj0SFrSjA/23pcfqpVPZFcZFi6LcfuATGpxG3JHqgE\nuXA5Vq1XxxbrJUHja3+nyH/UqWNR/LFLe2RBG4RrGy2cyIY3Ewwnd0fTWhEEYDPP\nDdAX4TtPA6Upe58BXgd/4gXziwKBgQDWL5LOXjMxPRbQx9ZPzD1yxASsPgj8TQK6\n7NkuaAZQz6bxxeowTMEPGB5oWaRV7lPLrV6RmOkE8J19nTgNs5tVdAtfDKmXaPio\nxhpp8mDDFphv/8z1ETeXlRlyev6sCgqxT9nikI4suSBoSluWN4Ajce2QKBVlKepn\nLAoCIHKQawKBgQDjbHFPKo0/XaPCV2BShQHMQOtHGqJ+is5OCbVykgQaqJEl+nHc\nmV32Ch2jthdsyIONsvXBmxH1Zg0aFgYLWxbm+vwAFsreEQxUjWgj+21oiCkJPYne\nStcQCgICVOWBtWwFujbx4vZEIkiQLfKGCVPGw3qhSB95CTqqovWTvabnbQKBgGoI\nSykWwUkS8QSSqan/djwmhhmu7Eva5AsdzbaHkPjYk9EFJZabqMeMLSGDnzNbNOiT\n/0kc5d6oL49MEb/WtoNrW2XGov5t3QvQZqskbnql6PkpLZH04AyOp3ZhJUqN/hUh\nbsAWyAuj6kM27HhFKY5ijDTdYxod0gkZaCr9XTnZAoGBAN8Ecgm6R9MannkUs3qe\nr39HTf+JYpSEkTw9v6/Buc4YyDs3oGyYdPAwXJ691LdkZkOEtqhr7WItELe9SAyJ\nKG1jBDeWsTfiEeozkDeEA5mtNwqEgrSJuj2+ovTbl+dfHNkWLPA3HCggYoXHto3z\n9fowOO/SsMpLdYTkfg7PtKlI\n-----END PRIVATE KEY-----\n",
+  "client_email": "pagina-bots@paginabot-qfkf.iam.gserviceaccount.com",
+  "client_id": "118386702104980790910",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/pagina-bots%40paginabot-qfkf.iam.gserviceaccount.com"
+}
