@@ -12,6 +12,9 @@ const PromocionSchema = Schema({
         type: String,
         allowNull: true
     },
+    fecha: {
+        type: String
+    },
     cantidadSillas: {
         type: String
     },

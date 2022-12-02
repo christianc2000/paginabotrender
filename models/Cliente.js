@@ -6,13 +6,12 @@ const ClienteSchema = Schema({
         type: String,
         allowNull: false
     },
+    correo: {
+        type: String
+    },
     celular: {
         type: String,
         allowNull: true
-    },
-    token: {
-        type: String,
-        default: generaIdRandom()
     },
     idPros: {
         type: mongoose.Types.ObjectId,

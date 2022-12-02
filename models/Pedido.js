@@ -1,25 +1,26 @@
 const { Schema, model, default: mongoose } = require('mongoose');
 
-const ValoracionSchema = Schema({
-    opinion: {
-        type: String,
-        allowNull: true
-    },
-    estrella: {
-        type: Number
-    },
+const PedidoSchema = Schema({
     fecha: {
         type: String
     },
     hora: {
         type: String
     },
+    monto: {
+        type: Number,
+        allowNull: true
+    },
     cliente: {
         type: mongoose.Types.ObjectId,
         ref: 'Cliente'
+    },
+    confirmado: {
+        type: Boolean,
+        default: false
     }
 }, {
     timestamps: true
 });
 
-module.exports = model( 'Valoracion', ValoracionSchema );
+module.exports = model( 'Pedido', PedidoSchema );
