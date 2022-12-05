@@ -297,7 +297,7 @@ const carrito = async( resultado, facebookId ) => {
     console.log('cantidad carrito'+cantidad);
     // console.log('--------------------------producto-----------------');
     let producto = resultado.outputContexts[2].parameters.fields.Formas.stringValue;
-    // console.log(producto)
+     console.log(producto)
     let productoDB = await Producto.findOne({ forma: producto });
     // console.log('--------------------------producto-----------------');
     let carrito;
