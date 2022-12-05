@@ -294,7 +294,7 @@ const Sucursales = async() => {
 const carrito = async( resultado, facebookId ) => {
     // 1. Dato de dialogflow
     let cantidad = await parseInt( resultado.outputContexts[2].parameters.fields.number.numberValue );
-    
+    console.log('cantidad carrito'+cantidad);
     // console.log('--------------------------producto-----------------');
     let producto = resultado.outputContexts[2].parameters.fields.Formas.stringValue;
     // console.log(producto)
