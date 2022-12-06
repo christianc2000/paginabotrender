@@ -4,6 +4,7 @@ const generarJWT = require('../helpers/generarJWT');
 const emailRegistro = require('../helpers/email');
 const bcryptjs = require('bcryptjs');
 const Persona = require('../models/Persona');
+const { JsonWebTokenError } = require('jsonwebtoken');
 
 // =====_____*****_____***** Método POST :: crear usuario *****_____*****_____*****=====
 const registrar = async( req, res ) => {
@@ -74,6 +75,7 @@ const autenticar = async(req, res) => {
             correo: usuario.correo,
             token: generarJWT( usuario._id )  
         }
+      
         res.json(data);
        /* res.json({
             _id: usuario._id,
