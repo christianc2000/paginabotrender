@@ -47,7 +47,10 @@ const autenticar = async(req, res) => {
     if ( !usuario ) {
         const error = new Error('Usuario no encontrado');
         return res.status(404).json({ msg: error.message });
+    }else{
+        console.log('usuario encontrado');
     }
+    
     // 2. Comprobar si el usuario está activo
     if ( !usuario.estado ) {
         const error = new Error('Usuario no está activo');
@@ -62,14 +65,24 @@ const autenticar = async(req, res) => {
     const validarPassword = bcryptjs.compareSync( password, usuario.password );
     if ( validarPassword ) {
         const {persona} = await Usuario.findOne({ correo }).populate('persona');
-        res.json({
+        console.log('entra en validar');
+        const data={
             _id: usuario._id,
             nombre: persona.nombre,
             celular: persona.celular,
             direccion: persona.direccion,
             correo: usuario.correo,
-            token: generarJWT( usuario._id )
-        });
+            token: generarJWT( usuario._id )  
+        }
+        res.json(data);
+       /* res.json({
+            _id: usuario._id,
+            nombre: persona.nombre,
+            celular: persona.celular,
+            direccion: persona.direccion,
+            correo: usuario.correo,
+        });*/
+      //  console.log(data);
     } else {
         const error = new Error('Tu contraseña es incorrecta');
         return res.status(403).json({ msg: error.message });

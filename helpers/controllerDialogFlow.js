@@ -12,108 +12,108 @@ const Ingreso = require("../models/Ingreso");
 const request = require('request');
 const Pedido = require("../models/Pedido");
 const PedidoDetalle = require("../models/PedidoDetalle");
-const controllerDialogFlow = async( resultado, senderId ) => {
+const controllerDialogFlow = async (resultado, senderId) => {
     let peticion = {};
     let respuesta;
-    ApiFacebook( senderId );
+    ApiFacebook(senderId);
     switch (resultado.intent.displayName) {
         case 'Saludo':
-            respuesta = await Saludo( resultado, senderId );
-            peticion = await envio( respuesta, senderId )
+            respuesta = await Saludo(resultado, senderId);
+            peticion = await envio(respuesta, senderId)
             break;
-        case 'Promocion': 
-            respuesta = await Promociones( resultado.fulfillmentText );
-            peticion = await envio( respuesta, senderId )
+        case 'Promocion':
+            respuesta = await Promociones(resultado.fulfillmentText);
+            peticion = await envio(respuesta, senderId)
             break;
-        case 'Sucursales': 
-            respuesta = await Sucursales( resultado.fulfillmentText );
-            peticion = await envio( respuesta, senderId )
+        case 'Sucursales':
+            respuesta = await Sucursales(resultado.fulfillmentText);
+            peticion = await envio(respuesta, senderId)
             break;
         case 'Sillas':
-            respuesta = await Sillas( resultado.fulfillmentText, senderId );
-            peticion = await envio( respuesta, senderId )
+            respuesta = await Sillas(resultado.fulfillmentText, senderId);
+            peticion = await envio(respuesta, senderId)
             break;
         case 'Mesas':
-            respuesta = await Mesas( resultado, senderId );
-            peticion = await envio( respuesta, senderId )
+            respuesta = await Mesas(resultado, senderId);
+            peticion = await envio(respuesta, senderId)
             break;
         case 'Precios':
-            respuesta = await Precios( resultado.fulfillmentText, senderId );
-            peticion = await envio( respuesta, senderId )
+            respuesta = await Precios(resultado.fulfillmentText, senderId);
+            peticion = await envio(respuesta, senderId)
             break;
         case 'pedirTelefono':
-            respuesta = await PedirNombreCelular( resultado, senderId );
-            peticion = await envio( respuesta, senderId );
+            respuesta = await PedirNombreCelular(resultado, senderId);
+            peticion = await envio(respuesta, senderId);
             break;
         case 'formaMesaCuadrada':
-            respuesta = await formaMesaCuadrada( resultado, senderId );
-            peticion = await envio( respuesta, senderId );
+            respuesta = await formaMesaCuadrada(resultado, senderId);
+            peticion = await envio(respuesta, senderId);
             break;
         case 'formaMesaCircular':
-            respuesta = await formaMesaCircular( resultado, senderId );
-            peticion = await envio( respuesta, senderId );
+            respuesta = await formaMesaCircular(resultado, senderId);
+            peticion = await envio(respuesta, senderId);
             break;
         case 'PedidoSillas':
-            respuesta = await PedidoSillas( resultado, senderId );
-            peticion = await envio( respuesta, senderId );
+            respuesta = await PedidoSillas(resultado, senderId);
+            peticion = await envio(respuesta, senderId);
             break;
         case 'Valoracion':
-            respuesta = await valor( resultado, senderId );
-            peticion = await envio( respuesta, senderId );
+            respuesta = await valor(resultado, senderId);
+            peticion = await envio(respuesta, senderId);
             break;
         case 'CorreoRegistrado':
-            respuesta = await CorreoProspecto( resultado, senderId );
-            peticion = await envio( respuesta, senderId );
+            respuesta = await CorreoProspecto(resultado, senderId);
+            peticion = await envio(respuesta, senderId);
             break;
         case 'cantidadSillas':
-            respuesta = await carrito( resultado, senderId );
-            peticion = await envio( respuesta, senderId );
+            respuesta = await carrito(resultado, senderId);
+            peticion = await envio(respuesta, senderId);
             break;
         case 'NoConfirmacion':
-            respuesta = await noConfirmacion( resultado, senderId );
-            peticion = await envio( respuesta, senderId );
+            respuesta = await noConfirmacion(resultado, senderId);
+            peticion = await envio(respuesta, senderId);
             break;
         case 'Confirmacion':
-            respuesta = await confirmacion( resultado, senderId );
-            peticion = await envio( respuesta, senderId );
+            respuesta = await confirmacion(resultado, senderId);
+            peticion = await envio(respuesta, senderId);
             break;
         case 'NoConfirmarCarrito':
-            respuesta = await noConfirmarCarrito( resultado, senderId );
-            peticion = await envio( respuesta, senderId );
+            respuesta = await noConfirmarCarrito(resultado, senderId);
+            peticion = await envio(respuesta, senderId);
             break;
         case 'PedirNombre1':
-            respuesta = await pedirNombre( resultado, senderId );
-            peticion = await envio( respuesta, senderId );
+            respuesta = await pedirNombre(resultado, senderId);
+            peticion = await envio(respuesta, senderId);
             break;
         case 'correoCliente':
-            respuesta = await correoCliente( resultado, senderId );
-            peticion = await envio( respuesta, senderId );
+            respuesta = await correoCliente(resultado, senderId);
+            peticion = await envio(respuesta, senderId);
             break;
         default:
-            peticion = await envio( resultado.fulfillmentText, senderId );
+            peticion = await envio(resultado.fulfillmentText, senderId);
             break;
     }
     return peticion;
 }
-const Saludo = async( resultado, facebookId ) => {
+const Saludo = async (resultado, facebookId) => {
     const prospecto = await Prospecto.findOne({ facebookId });
     console.log("prospecto" + prospecto)
     let listar = ''
-    if ( prospecto ) {
-        listar = `Hola Buenas ${ prospecto.nombre } ¿Usted necesita información o saber detalles de alquiler de mesas y silla?`
+    if (prospecto) {
+        listar = `Hola Buenas ${prospecto.nombre} ¿Usted necesita información o saber detalles de alquiler de mesas y silla?`
     } else {
         listar = "Hola Buenas ¿Usted necesita información o saber detalles de alquiler de mesas y silla?";
     }
     return listar;
 }
-const valor = async( resultado, facebookId ) => {
+const valor = async (resultado, facebookId) => {
     try {
         // console.log(resultado.queryText);
         // console.log(resultado.outputContexts);
         const comentario = resultado?.queryText;
         // console.log("comentario" + comentario)
         const cliente = await Cliente.findOne({ facebookId });
-        const registrar = new Valoracion( { opinion: comentario, cliente  } );
+        const registrar = new Valoracion({ opinion: comentario, cliente });
         registrar.save();
         console.log('------- Valoracion creada -------' + Cliente)
     } catch (error) {
@@ -121,50 +121,50 @@ const valor = async( resultado, facebookId ) => {
     }
     return resultado.fulfillmentText;
 }
-const CorreoProspecto = async( resultado, facebookId ) => {
+const CorreoProspecto = async (resultado, facebookId) => {
     const prospecto = await Prospecto.findOne({ facebookId });
     prospecto.correo = resultado.queryText;
     prospecto.save();
     return resultado.fulfillmentText;
 }
-const Promociones = async( resultado ) => {
+const Promociones = async (resultado) => {
     const detalle = await Detalle.find().populate('producto').populate('promocion');
     // console.log(detalle)
     let strPromos = `Las promociones de este mes:`;
-    detalle.forEach( (pro, index) => {
-        strPromos = strPromos + `\n *⌛ ${ pro.promocion.nombre } de ${ pro.promocion.cantidadMesas } ${ pro.producto.nombre }s ${ pro.producto.forma } con ${ pro.promocion.cantidadSillas } Sillas a ${ pro.promocion.descuento }Bs`;
+    detalle.forEach((pro, index) => {
+        strPromos = strPromos + `\n *⌛ ${pro.promocion.nombre} de ${pro.promocion.cantidadMesas} ${pro.producto.nombre}s ${pro.producto.forma} con ${pro.promocion.cantidadSillas} Sillas a ${pro.promocion.descuento}Bs`;
     });
     strPromos = strPromos + `\n ¿Quisiera un pedido de algun juego?`;
     return strPromos;
 }
-const formaMesaCuadrada = async( resultado, facebookId ) => {
+const formaMesaCuadrada = async (resultado, facebookId) => {
     const producto = await Producto.findOne({ forma: 'cuadrada' });
     const prospecto = await Prospecto.findOne({ facebookId });
-    if ( prospecto && producto ) {
+    if (prospecto && producto) {
         console.log('entro aqui');
         await Consulta.create({ producto, prospecto });
     }
     return resultado.fulfillmentText;
 }
-const formaMesaCircular = async( resultado, facebookId ) => {
+const formaMesaCircular = async (resultado, facebookId) => {
     console.log('mesa cuadrada');
     const producto = await Producto.findOne({ forma: 'redonda' });
     const prospecto = await Prospecto.findOne({ facebookId });
-    if ( prospecto && producto ) {
+    if (prospecto && producto) {
         console.log('entro aqui');
         await Consulta.create({ producto, prospecto });
     }
     return resultado.fulfillmentText;
 }
-const PedidoSillas = async( resultado, facebookId ) => {
+const PedidoSillas = async (resultado, facebookId) => {
     const producto = await Producto.findOne({ nombre: 'silla' });
     const prospecto = await Prospecto.findOne({ facebookId });
-    if ( prospecto && producto ) {
+    if (prospecto && producto) {
         await Consulta.create({ producto, prospecto });
     }
     return resultado.fulfillmentText;
 }
-const PedirNombreCelular = async( resultado, facebookId ) => {
+const PedirNombreCelular = async (resultado, facebookId) => {
     try {
 
         // console.log(resultado.outputContexts[0].parameters.fields);
@@ -189,17 +189,17 @@ const PedirNombreCelular = async( resultado, facebookId ) => {
     }
     return resultado.fulfillmentText;
 }
-const Precios = async( resultado, facebookId ) => {
+const Precios = async (resultado, facebookId) => {
     let imagenesMostrar = [];
     const obtenerTodosAlquileres = await Producto.find();
     let listar = 'Los precios de alquileres de sillas y mesas son los siguientes: ';
-    obtenerTodosAlquileres.forEach( pro => {
+    obtenerTodosAlquileres.forEach(pro => {
         // console.log("Productos: " + pro);
         imagenesMostrar.push({ url: pro.imagen });
-        if ( pro.nombre === 'silla' ) {
+        if (pro.nombre === 'silla') {
             listar = listar + `\n * 10 ${pro.nombre} a ${pro.precio}Bs`;
         } else {
-            if ( pro.forma === 'cuadrada' ) {
+            if (pro.forma === 'cuadrada') {
                 listar = listar + `\n * 5 ${pro.nombre}s de forma ${pro.forma} a ${pro.precio} Bs`;
             } else {
                 listar = listar + `\n * 5 ${pro.nombre}s de forma ${pro.forma} a ${pro.precio} Bs`;
@@ -207,11 +207,11 @@ const Precios = async( resultado, facebookId ) => {
         }
     });
     listar = listar + `\n ¿Quisiera realizar un pedido de mesas o sillas?`;
-    await envioImagen( imagenesMostrar, facebookId );
+    await envioImagen(imagenesMostrar, facebookId);
     return listar;
 }
-const envioImagen = async( imagenes, id ) => {
-    await imagenes.forEach( img => {
+const envioImagen = async (imagenes, id) => {
+    await imagenes.forEach(img => {
         request({
             uri: 'https://graph.facebook.com/v14.0/me/messages',
             qs: { access_token: config.FB_PAGE_TOKEN },
@@ -239,75 +239,85 @@ const envioImagen = async( imagenes, id ) => {
         })
     })
 }
-const Sillas = async( resultado, facebookId ) => {
+const Sillas = async (resultado, facebookId) => {
     const obtenerSilla = await Producto.find();
     const producto = await Producto.findOne({ nombre: 'silla' });
     const prospecto = await Prospecto.findOne({ facebookId });
     let listar = '';
     let imagenSilla = [];
-    obtenerSilla.forEach( alquiler => {
-        if ( alquiler.nombre === 'silla' ) {
-            imagenSilla.push( { url: alquiler.imagen } )
+    obtenerSilla.forEach(alquiler => {
+        if (alquiler.nombre === 'silla') {
+            imagenSilla.push({ url: alquiler.imagen })
             listar = listar + `\n 🪑Las sillas están a un precio de: \n 10 sillas a ${alquiler.precio}Bs. \n¿Quisiera realizar un pedido?`;
         }
     });
-    if ( producto && prospecto ) {
+    if (producto && prospecto) {
         await Consulta.create({ producto, prospecto });
     }
-    await envioImagen( imagenSilla, facebookId );
+    await envioImagen(imagenSilla, facebookId);
     return listar;
 }
-const Mesas = async( resultado, facebookId ) => {
+const Mesas = async (resultado, facebookId) => {
     const producto = await Producto.findOne({ forma: 'cuadrada' });
     const producto1 = await Producto.findOne({ forma: 'redonda' });
     const prospecto = await Prospecto.findOne({ facebookId });
     const obtenerMesas = await Producto.find();
     let mesasImagenes = [];
     let listar = 'El precio de las mesas son los siguientes: ';
-    obtenerMesas.forEach( alquiler => {
-        if ( alquiler.forma === 'cuadrada' || alquiler.forma === 'redonda' ) {
-            mesasImagenes.push({ url: alquiler.imagen } );
+    obtenerMesas.forEach(alquiler => {
+        if (alquiler.forma === 'cuadrada' || alquiler.forma === 'redonda') {
+            mesasImagenes.push({ url: alquiler.imagen });
             listar = listar + `\n * 5 ${alquiler.nombre}s de forma ${alquiler.forma} a ${alquiler.precio}Bs`;
         }
     });
-    if ( prospecto && producto ) {
+    if (prospecto && producto) {
         await Consulta.create({ producto, prospecto });
         await Consulta.create({ producto1, prospecto });
     }
     listar = listar + '\n ¿Quisiera realizar un pedido?';
-    await envioImagen( mesasImagenes, facebookId );
+    await envioImagen(mesasImagenes, facebookId);
     return listar;
 }
-const Sucursales = async() => {
-    const obtenerTodosSucursal= await Sucursal.find();
+const Sucursales = async () => {
+    const obtenerTodosSucursal = await Sucursal.find();
     let listar = 'Las sucursales de la tienda son: ';
-    obtenerTodosSucursal.forEach( sucur => {
-        
-        listar = listar + `\n * 🏠${ sucur.departamento }, ${ sucur.municipio }, Barrio: ${sucur.barrio}, Calle: ${sucur.calle}, número: ${sucur.numero}`;
-         
+    obtenerTodosSucursal.forEach(sucur => {
+
+        listar = listar + `\n * 🏠${sucur.departamento}, ${sucur.municipio}, Barrio: ${sucur.barrio}, Calle: ${sucur.calle}, número: ${sucur.numero}`;
+
     });
     return listar;
 }
 // 2022-10-25T15:08:50.450053+00:00 app[web.1]: { numberValue: 10, kind: 'numberValue' }
 // 
 // 2022-10-25T15:08:50.450098+00:00 app[web.1]: { stringValue: 'silla', kind: 'stringValue' }
-const carrito = async( resultado, facebookId ) => {
+const carrito = async (resultado, facebookId) => {
+
+    // Silla
+    console.log(resultado.outputContexts[2].parameters.fields.number);
+    console.log(resultado.outputContexts);
+    console.log(resultado.intent.displayName.toLowerCase());
+    console.log(resultado.intent.displayName.toLowerCase().includes('silla'))
+    console.log(resultado.intent.displayName.toLowerCase().includes('redonda'))
+    console.log(resultado.intent.displayName.toLowerCase().includes('cuadrada'))
     // 1. Dato de dialogflow
-    let cantidad = await parseInt( resultado.outputContexts[2].parameters.fields.number.numberValue );
-    console.log('cantidad carrito'+cantidad);
+    let cantidad = await parseInt(resultado.outputContexts[2].parameters.fields.number.numberValue);
     // console.log('--------------------------producto-----------------');
-    let producto = resultado.outputContexts[2].parameters.fields.Formas.stringValue;
-     console.log(producto)
+    let producto = '';
+    if (resultado.intent.displayName.toLowerCase().includes('silla')) {
+        producto = 'silla';
+    }
+    // console.log(producto)
     let productoDB = await Producto.findOne({ forma: producto });
     // console.log('--------------------------producto-----------------');
     let carrito;
     let cliente = await Cliente.findOne({ facebookId });
     let prospecto = await Prospecto.findOne({ facebookId });
-    if ( !productoDB ) {// es mesa
-        productoDB = await Producto.findOne({ nombre: "silla" });        
+    if (!productoDB) {// es mesa
+        productoDB = await Producto.findOne({ nombre: "silla" });
     }
     // 2. Verificar si es cliente por 1ra vez y crearlo un cliente
-    if ( !cliente ) {
+    if (!cliente) {
         cliente = await Cliente.create({
             nombre: prospecto.nombre,
             facebookId: prospecto.facebookId,
@@ -315,12 +325,12 @@ const carrito = async( resultado, facebookId ) => {
         });
     }
     // 3. Encontramos cliente y prospecto: encontrar pedido anterior
-    if ( cliente ) {
+    if (cliente) {
         // encontramos el anterior carrito
         carrito = await Pedido.findOne({ cliente: cliente._id, confirmado: false });
     }
     // crear nuevo carrito
-    if ( !carrito ) {
+    if (!carrito) {
         const fecha = new Date().toLocaleDateString('es-ES', {
             timeZone: 'America/La_Paz',
         });
@@ -331,32 +341,32 @@ const carrito = async( resultado, facebookId ) => {
         // console.log(hora);
         carrito = await Pedido.create({
             monto: 0,
-            fecha, 
+            fecha,
             hora,
             cliente: cliente._id
             // confirmado por defecto false
         });
     }
     // detalle del pedido
-    let subTotal = cantidad * parseInt( productoDB.precio );
+    let subTotal = cantidad * parseInt(productoDB.precio);
     await PedidoDetalle.create({
         cantidad,
-        precio: parseInt( productoDB.precio ),
+        precio: parseInt(productoDB.precio),
         sub_total: subTotal,
         producto: productoDB._id,
         pedido: carrito._id
     });
-    // TODO: ACTUALIZAR MONTO
-    let montoCarrito = parseInt( carrito.monto ) + subTotal;
-    await Pedido.findByIdAndUpdate( { _id: carrito._id }, { monto: montoCarrito } );
-    // console.log('---------------Inicio carrito --------------');
+    // // TODO: ACTUALIZAR MONTO
+    let montoCarrito = parseInt(carrito.monto) + subTotal;
+    await Pedido.findByIdAndUpdate({ _id: carrito._id }, { monto: montoCarrito });
+    console.log('---------------Inicio carrito --------------');
     // console.log(carrito);
     // console.log(subTotal);
     // console.log(montoCarrito);
-    // console.log('---------------Fin carrito --------------');
-    
-    
-    
+    console.log('---------------Fin carrito --------------');
+
+
+
     // console.log(resultado.outputContexts[2].parameters.fields.number.numberValue);
     // console.log(resultado.outputContexts[2].parameters.fields.Formas.stringValue);
     return resultado.fulfillmentText;
@@ -380,18 +390,18 @@ const carrito = async( resultado, facebookId ) => {
 //   updatedAt: 2022-10-30T01:16:03.741Z,
 //   __v: 0
 // }
-const noConfirmacion = async( resultado, facebookId ) => {
+const noConfirmacion = async (resultado, facebookId) => {
     const cliente = await Cliente.findOne({ facebookId });
     const existePedido = await Pedido.findOne({ cliente: { _id: cliente._id } }).populate('cliente');
-    let mensaje = `Su carrito tiene la suma total de: ${ existePedido.monto }$ quiere confirmar su carrito?`;
+    let mensaje = `Su carrito tiene la suma total de: ${existePedido.monto}$ quiere confirmar su carrito?`;
     return mensaje;
 };
-const confirmacion = async( resultado, facebookId ) => {
+const confirmacion = async (resultado, facebookId) => {
     const cliente = await Cliente.findOne({ facebookId });
     const prospecto = await Prospecto.findOne({ facebookId });
-    const cantidadPedidos = await Pedido.countDocuments({ cliente: cliente._id  });
-    const existePedido = await Pedido.find({ cliente: cliente._id }).sort( { $natural: -1 } ).limit( 1 );
-    if ( cantidadPedidos > 1 ) {
+    const cantidadPedidos = await Pedido.countDocuments({ cliente: cliente._id });
+    const existePedido = await Pedido.find({ cliente: cliente._id }).sort({ $natural: -1 }).limit(1);
+    if (cantidadPedidos > 1) {
         prospecto.estado = 4;
     } else {
         prospecto.estado = 3;
@@ -402,40 +412,40 @@ const confirmacion = async( resultado, facebookId ) => {
     console.log('--------------confirmar');
     return resultado.fulfillmentText;
 }
-const pedirNombre = async( resultado, facebookId ) => {
+const pedirNombre = async (resultado, facebookId) => {
     const cliente = await Cliente.findOne({ facebookId });
     cliente.nombre = resultado?.queryText;
     cliente.save();
     return resultado.fulfillmentText;
 }
-const correoCliente = async( resultado, facebookId ) => {
+const correoCliente = async (resultado, facebookId) => {
     const cliente = await Cliente.findOne({ facebookId });
     const prospecto = await Prospecto.findOne({ facebookId });
-    prospecto.correo = resultado?.queryText 
+    prospecto.correo = resultado?.queryText
     cliente.correo = resultado?.queryText;
     cliente.save();
     prospecto.save();
     return resultado.fulfillmentText;
 }
-const noConfirmarCarrito = async( resultado, facebookId ) => {
+const noConfirmarCarrito = async (resultado, facebookId) => {
     const cliente = await Cliente.findOne({ facebookId });
     const existePedido = await Pedido.findOne({ cliente: { _id: cliente._id } }).populate('cliente');
     const pedidoDetalle = await PedidoDetalle.find({ pedido: { _id: existePedido._id } }).populate('pedido');
     // console.log('------------detalle')
     // console.log(pedidoDetalle);
     pedidoDetalle.forEach(async pedido => {
-        await PedidoDetalle.findByIdAndDelete( pedido._id )
+        await PedidoDetalle.findByIdAndDelete(pedido._id)
     });
-    await Pedido.findByIdAndDelete( existePedido._id  );
+    await Pedido.findByIdAndDelete(existePedido._id);
     return resultado.fulfillmentText;
 }
-const ApiFacebook = async( facebookId ) => {
-    const url = `https://graph.facebook.com/v15.0/${ facebookId }?fields=first_name,last_name,profile_pic&access_token=${ config.FB_PAGE_TOKEN }`;
-    const { data } = await axios.get( url );
+const ApiFacebook = async (facebookId) => {
+    const url = `https://graph.facebook.com/v15.0/${facebookId}?fields=first_name,last_name,profile_pic&access_token=${config.FB_PAGE_TOKEN}`;
+    const { data } = await axios.get(url);
     const usuario = await Prospecto.findOne({ facebookId });
-    if ( !usuario ) {
-        await Prospecto.create({ 
-            nombre: data.first_name + " "  + data.last_name,
+    if (!usuario) {
+        await Prospecto.create({
+            nombre: data.first_name + " " + data.last_name,
             imagen: data.profile_pic,
             facebookId,
             estado: 1,
@@ -446,15 +456,15 @@ const ApiFacebook = async( facebookId ) => {
             prospecto: usuario._id,
             entrada: new Date().toLocaleDateString()
         })
-        if ( !entrada ) {
+        if (!entrada) {
             const ingresoUsuario = new Ingreso({ prospecto: usuario._id, entrada: new Date().toLocaleDateString() });
             ingresoUsuario.save();
         }
     }
 }
-const envio = ( resultado, senderId, tipo = 'text' ) => {
+const envio = (resultado, senderId, tipo = 'text') => {
     let peticion = {};
-    switch ( tipo ) {
+    switch (tipo) {
         default:
             peticion = {
                 recipient: {
