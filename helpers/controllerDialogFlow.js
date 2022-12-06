@@ -295,17 +295,23 @@ const Sucursales = async() => {
 const carrito = async( resultado, facebookId ) => {
 
     // Silla
-    console.log( resultado.outputContexts[2].parameters.fields.number );
-    console.log( resultado.outputContexts );
-    console.log( resultado.intent.displayName.toLowerCase() );
-    console.log( resultado.intent.displayName.toLowerCase().includes('silla') )
-    console.log( resultado.intent.displayName.toLowerCase().includes('redonda') )
-    console.log( resultado.intent.displayName.toLowerCase().includes('cuadrada') )
+    // console.log( resultado.outputContexts[2].parameters.fields.number );
+    // console.log( resultado.outputContexts );
+    // console.log( resultado.intent.displayName.toLowerCase() );
+    // console.log( resultado.intent.displayName.toLowerCase().includes('silla') )
+    // console.log( resultado.outputContexts[2].parameters.fields.Formas.stringValue )
+    // console.log( resultado.intent.displayName.toLowerCase().includes('redonda') )
+    // console.log( resultado.intent.displayName.toLowerCase().includes('cuadrada') )
+
     // 1. Dato de dialogflow
     let cantidad = await parseInt( resultado.outputContexts[2].parameters.fields.number.numberValue ); 
     // console.log('--------------------------producto-----------------');
     let producto = '';
-    if ( resultado.intent.displayName.toLowerCase().includes('silla')  ) {
+    if ( resultado.outputContexts[2]?.parameters?.fields?.Formas?.stringValue === 'redonda'  ) {
+        producto = 'redonda';
+    } else if ( resultado.outputContexts[2]?.parameters?.fields?.Formas?.stringValue === 'cuadrada' ) {
+        producto = 'cuadrada';
+    } else {
         producto = 'silla';
     }
     // console.log(producto)
@@ -360,11 +366,11 @@ const carrito = async( resultado, facebookId ) => {
     // // TODO: ACTUALIZAR MONTO
     let montoCarrito = parseInt( carrito.monto ) + subTotal;
     await Pedido.findByIdAndUpdate( { _id: carrito._id }, { monto: montoCarrito } );
-    console.log('---------------Inicio carrito --------------');
+    // console.log('---------------Inicio carrito --------------');
     // console.log(carrito);
     // console.log(subTotal);
     // console.log(montoCarrito);
-    console.log('---------------Fin carrito --------------');
+    // console.log('---------------Fin carrito --------------');
     
     
     

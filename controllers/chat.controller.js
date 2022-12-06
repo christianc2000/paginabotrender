@@ -10,18 +10,18 @@ const Detalle = require('../models/Detalle');
 const Pedido = require('../models/Pedido');
 const { default: mongoose } = require('mongoose');
 
-const test = (req, res) => {
+const test = ( req, res ) => {
     // console.log( typeof new Date().toLocaleDateString() );
-    /* const detalle1 = new Detalle( { 
-         producto: '6389f07a9385f66f7193ad55', 
-         promocion: '6389f11ff35bb6b3f2cf1e35'
-     } );
-     const detalle2 = new Detalle( { 
-         producto: '6389f07a9385f66f7193ad53', 
-         promocion: '6389f11ff35bb6b3f2cf1e36'
-     } );
-     detalle1.save()
-     detalle2.save()*/
+    // const detalle1 = new Detalle( { 
+    //     producto: '63574bc9ac4aa241bc5b7336', 
+    //     promocion: '63582a0f0ed23ea51d930dd5'
+    // } );
+    // const detalle2 = new Detalle( { 
+    //     producto: '63574bc9ac4aa241bc5b7337', 
+    //     promocion: '63582a0f0ed23ea51d930dd6'
+    // } );
+    // detalle1.save()
+    // detalle2.save()
     // promocion.save();
     // const promocion1 = new Promocion( { 
     //     nombre: 'Paquete 1', 
@@ -40,15 +40,15 @@ const test = (req, res) => {
     // promocion1.save();
     // promocion2.save();
     // const sucursal = new Sucursal( { departamento: 'Santa Cruz', municipio: 'El Torno', barrio: '6 de Mayo', calle: 'Bolivia', numero: '80' } );
-     //const sucursal1 = new Sucursal( { departamento: 'Santa Cruz', municipio: 'El Torno', barrio: 'Miraflores', calle: 'Naciones Unidas', numero: '10' } );
-     //const producto1 = new Producto( { nombre: 'Mesa', precio: '100', forma: 'Redonda', imagen: 'https://st.depositphotos.com/1177973/2679/i/600/depositphotos_26798097-stock-photo-beautiful-table-setting-for-breakfast.jpg' } );
-     //const producto2 = new Producto( { nombre: 'Mesa', precio: '70', forma: 'Cuadrada', imagen: 'https://i.pinimg.com/originals/52/32/b5/5232b5e71144a2bf9e4ce46300f257b7.png' } );
-     //const producto3 = new Producto( { nombre: 'Silla', precio: '50', imagen: 'https://images.unsplash.com/photo-1604798324483-1e183aab8cf1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80.jpg' } );
-     //sucursal.save();
-     //sucursal1.save();
-     //producto1.save(); 
-     //producto2.save();   
-     //producto3.save();
+    // const sucursal1 = new Sucursal( { departamento: 'Santa Cruz', municipio: 'El Torno', barrio: 'Miraflores', calle: 'Naciones Unidas', numero: '10' } );
+    // const producto1 = new Producto( { nombre: 'Mesa', precio: '100', forma: 'Redonda', imagen: 'https://st.depositphotos.com/1177973/2679/i/600/depositphotos_26798097-stock-photo-beautiful-table-setting-for-breakfast.jpg' } );
+    // const producto2 = new Producto( { nombre: 'Mesa', precio: '70', forma: 'Cuadrada', imagen: 'https://i.pinimg.com/originals/52/32/b5/5232b5e71144a2bf9e4ce46300f257b7.png' } );
+    // const producto3 = new Producto( { nombre: 'Silla', precio: '50', imagen: 'https://images.unsplash.com/photo-1604798324483-1e183aab8cf1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80.jpg' } );
+    // sucursal.save();
+    // sucursal1.save();
+    // producto1.save(); 
+    // producto2.save();   
+    // producto3.save();
     // promocion1.save();
     // promocion2.save();
 
@@ -64,55 +64,55 @@ const test = (req, res) => {
     res.send('Bot prueba1');
     // console.log('Bot prueba');
 }
-const getWebHook = (req, res) => {
+const getWebHook = ( req, res ) => {
     const verifyToken = config.MY_VERIFY_TOKEN;
     const mode = req.query['hub.mode'];
     const token = req.query['hub.verify_token'];
     const challengue = req.query['hub.challenge'];
-    if (mode && token) {
-        if (mode === 'subscribe' && token === verifyToken) {
+    if ( mode && token ) {
+        if ( mode === 'subscribe' && token === verifyToken ) {
             // console.log(' webhook verificado ');
-            res.status(200).send(challengue);
+            res.status( 200 ).send( challengue );
         } else {
-            res.sendStatus(403);
+            res.sendStatus( 403 );
         }
     }
 }
-const postWebHook = (req, res) => {
+const postWebHook = ( req, res ) => {
     let data = req.body;
-    if (data.object === "page") {
-        data.entry.forEach(pageEntry => {
-            pageEntry.messaging.forEach(messagingEvent => {
+    if ( data.object === "page" ) {
+        data.entry.forEach( pageEntry => {
+            pageEntry.messaging.forEach( messagingEvent => {
                 if (messagingEvent.message) {
-                    receivedMessage(messagingEvent);
+                    receivedMessage( messagingEvent );
                 } else {
-                    console.log("Webhook received unknown messagingEvent: ", messagingEvent);
+                    // console.log( "Webhook received unknown messagingEvent: ", messagingEvent );
                 }
             });
         });
         res.sendStatus(200);
     } else {
-        res.sendStatus(404);
-    }
+        res.sendStatus( 404 );
+    } 
 
 }
-const receivedMessage = async (event) => {
+const receivedMessage = async( event ) => {
     let senderId = event.sender.id;
     let message = event.message;
     let messageText = message.text;
-    if (messageText) {
+    if ( messageText ) {
         // console.log("1.MENSAJE DEL USUARIO: ", messageText);
         await sendDialogFlow(senderId, messageText);
     }
 }
-const sendDialogFlow = async (senderId, messageText) => {
-    let respuesta = await detectIntent(config.GOOGLE_PROJECT_ID, senderId, messageText, '', 'es');
+const sendDialogFlow = async( senderId, messageText ) => {
+    let respuesta = await detectIntent( config.GOOGLE_PROJECT_ID, senderId, messageText, '', 'es' );
     // console.log(respuesta)
     let peticion_body = {};
-    peticion_body = await controllerDialogFlow(respuesta, senderId);
-    envioMensaje(peticion_body);
+    peticion_body = await controllerDialogFlow( respuesta, senderId );
+    envioMensaje( peticion_body );
 }
-const envioMensaje = async (peticion_body) => {
+const envioMensaje = async( peticion_body ) => {
     // console.log('Envio mensaje a messenger');
     request(
         {
@@ -129,4 +129,4 @@ const envioMensaje = async (peticion_body) => {
         }
     );
 }
-module.exports = { test, getWebHook, postWebHook };
+module.exports ={ test, getWebHook, postWebHook };
