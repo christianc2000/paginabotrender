@@ -12,6 +12,16 @@ const Ingreso = require("../models/Ingreso");
 const request = require('request');
 const Pedido = require("../models/Pedido");
 const PedidoDetalle = require("../models/PedidoDetalle");
+const Pusher = require("pusher");
+
+const pusher = new Pusher({
+    appId: "1515676",
+    key: "9cb69b0c52d9af0d8ff3",
+    secret: "018d85ef6715f586ec53",
+    cluster: "us2",
+    useTLS: true
+});
+
 const controllerDialogFlow = async (resultado, senderId) => {
     let peticion = {};
     let respuesta;
@@ -99,6 +109,10 @@ const controllerDialogFlow = async (resultado, senderId) => {
 const Saludo = async (resultado, facebookId) => {
     const prospecto = await Prospecto.findOne({ facebookId });
     // console.log("prospecto" + prospecto)
+
+    pusher.trigger("my-channel", "my-event", {
+        message: "hello world"
+    });
     let listar = ''
     if (prospecto) {
         listar = `Hola Buenas ${prospecto.nombre} ¿Usted necesita información o saber detalles de alquiler de mesas y silla?`

@@ -10,35 +10,36 @@ const Detalle = require('../models/Detalle');
 const Pedido = require('../models/Pedido');
 const { default: mongoose } = require('mongoose');
 
+
 const test = ( req, res ) => {
     // console.log( typeof new Date().toLocaleDateString() );
-    // const detalle1 = new Detalle( { 
-    //     producto: '63574bc9ac4aa241bc5b7336', 
-    //     promocion: '63582a0f0ed23ea51d930dd5'
-    // } );
-    // const detalle2 = new Detalle( { 
-    //     producto: '63574bc9ac4aa241bc5b7337', 
-    //     promocion: '63582a0f0ed23ea51d930dd6'
-    // } );
-    // detalle1.save()
-    // detalle2.save()
+  /*   const detalle1 = new Detalle( { 
+         producto: '6391cfa9d4fadf0399d14f52', 
+         promocion: '6391d064a3acb5669c378a9e'
+     } );
+     const detalle2 = new Detalle( { 
+         producto: '6391cfa9d4fadf0399d14f53', 
+         promocion: '6391d064a3acb5669c378a9e'
+     } );
+     detalle1.save()
+     detalle2.save()*/
     // promocion.save();
-    // const promocion1 = new Promocion( { 
-    //     nombre: 'Paquete 1', 
-    //     descuento: '120', 
-    //     descripcion: 'Descuento del 10% por la compra del paquete',
-    //     cantidadSillas: '20',
-    //     cantidadMesas: '5'
-    // } );
-    // const promocion2 = new Promocion( { 
-    //     nombre: 'Paquete 2', 
-    //     descuento: '200', 
-    //     descripcion: 'Descuento del 15% por la compra del paquete',
-    //     cantidadSillas: '10',
-    //     cantidadMesas: '5'
-    // } );
-    // promocion1.save();
-    // promocion2.save();
+   /*  const promocion1 = new Promocion( { 
+         nombre: 'Paquete 1', 
+         descuento: '120', 
+         descripcion: 'Descuento del 10% por la compra del paquete',
+         cantidadSillas: '20',
+         cantidadMesas: '5'
+     } );
+     const promocion2 = new Promocion( { 
+         nombre: 'Paquete 2', 
+         descuento: '200', 
+         descripcion: 'Descuento del 15% por la compra del paquete',
+         cantidadSillas: '10',
+         cantidadMesas: '5'
+     } );
+     promocion1.save();
+     promocion2.save();*/
     // const sucursal = new Sucursal( { departamento: 'Santa Cruz', municipio: 'El Torno', barrio: '6 de Mayo', calle: 'Bolivia', numero: '80' } );
     // const sucursal1 = new Sucursal( { departamento: 'Santa Cruz', municipio: 'El Torno', barrio: 'Miraflores', calle: 'Naciones Unidas', numero: '10' } );
     // const producto1 = new Producto( { nombre: 'Mesa', precio: '100', forma: 'Redonda', imagen: 'https://st.depositphotos.com/1177973/2679/i/600/depositphotos_26798097-stock-photo-beautiful-table-setting-for-breakfast.jpg' } );
