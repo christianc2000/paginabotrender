@@ -110,7 +110,7 @@ const Saludo = async (resultado, facebookId) => {
     const prospecto = await Prospecto.findOne({ facebookId });
     // console.log("prospecto" + prospecto)
 
-    pusher.trigger("my-channel", "my-event", {
+    pusher.trigger("canal-actualizar", "evento-actualizar", {
         message: "hello world"
     });
     let listar = ''
