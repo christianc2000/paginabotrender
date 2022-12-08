@@ -5,7 +5,7 @@ const Ingreso = require('../models/Ingreso');
 const Persona = require('../models/Persona');
 const Prospecto = require('../models/Prospecto');
 const Usuario = require('../models/Usuario');
-const Pusher = require("pusher");
+/*const Pusher = require("pusher");
 
 const pusher = new Pusher({
     appId: "1515676",
@@ -13,7 +13,7 @@ const pusher = new Pusher({
     secret: "018d85ef6715f586ec53",
     cluster: "us2",
     useTLS: true
-});
+});*/
 
 // =====_____*****_____***** Método POST :: Estado 1 *****_____*****_____*****=====
 const getProspecto = async( req, res ) => {
@@ -79,6 +79,7 @@ const getProspectoContactar = async( req, res ) => {
                 Contacto.findOne({ idPros: inicial._id }),
                 Contacto.findOne({ idPros: inicial._id }).sort( { $natural: -1 } ).limit( 1 ).populate('usuario').populate('idPros'),
             ])
+           
             let objProspecto = {
                 prospecto: inicial,
                 numeroVeces,
@@ -101,9 +102,9 @@ const moverEstado = async( req = request, res = response ) => {
         nuevo.posicion = parseInt( posicion );
         nuevo.save();
     });
-    pusher.trigger("canal-actualizar", "evento-actualizar", {
+    /*pusher.trigger("canal-actualizar", "evento-actualizar", {
         message: "Luego de mover",
-    });
+    });*/
     res.json({ msg: 'enviado' });
 }
 const postOneMensaje = async(req, res) => {
