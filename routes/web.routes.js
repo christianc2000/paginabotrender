@@ -7,6 +7,5 @@ const router = Router();
 router.get('/', test );
 router.get('/webhook', getWebHook );
 router.post('/webhook', postWebHook );
-route.get('/pusher',pusherando);
 
 module.exports = router;
