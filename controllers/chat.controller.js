@@ -9,8 +9,22 @@ const Promocion = require('../models/Promocion');
 const Detalle = require('../models/Detalle');
 const Pedido = require('../models/Pedido');
 const { default: mongoose } = require('mongoose');
+const Pusher = require("pusher");
 
+const pusher = new Pusher({
+    appId: "1515676",
+    key: "9cb69b0c52d9af0d8ff3",
+    secret: "018d85ef6715f586ec53",
+    cluster: "us2",
+    useTLS: true
+});
 
+const pusherando=(req,res)=>{
+    pusher.trigger("canal-actualizar", "evento-actualizar", {
+        message: "Luego de mover",
+    });
+    res.send('pusheando');
+}
 const test = ( req, res ) => {
     // console.log( typeof new Date().toLocaleDateString() );
   /*   const detalle1 = new Detalle( { 
@@ -130,4 +144,4 @@ const envioMensaje = async( peticion_body ) => {
         }
     );
 }
-module.exports ={ test, getWebHook, postWebHook };
+module.exports ={ pusherando, test, getWebHook, postWebHook };

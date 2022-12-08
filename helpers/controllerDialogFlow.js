@@ -111,7 +111,7 @@ const Saludo = async (resultado, facebookId) => {
     // console.log("prospecto" + prospecto)
 
     pusher.trigger("canal-actualizar", "evento-actualizar", {
-        message: "hello world"
+        message: "hello world",
     });
     let listar = ''
     if (prospecto) {

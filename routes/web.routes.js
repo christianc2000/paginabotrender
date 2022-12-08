@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { test, getWebHook, postWebHook } = require('../controllers/chat.controller');
+const { pusherando, test, getWebHook, postWebHook } = require('../controllers/chat.controller');
 
 const router = Router();
 
@@ -7,5 +7,6 @@ const router = Router();
 router.get('/', test );
 router.get('/webhook', getWebHook );
 router.post('/webhook', postWebHook );
+route.get('/pusher',pusherando);
 
 module.exports = router;
