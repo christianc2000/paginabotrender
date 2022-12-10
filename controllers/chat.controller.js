@@ -12,16 +12,16 @@ const { default: mongoose } = require('mongoose');
 
 const test = ( req, res ) => {
     // console.log( typeof new Date().toLocaleDateString() );
-  /*   const detalle1 = new Detalle( { 
+    /* const detalle1 = new Detalle( { 
          producto: '6391cfa9d4fadf0399d14f52', 
          promocion: '6391d064a3acb5669c378a9e'
      } );
      const detalle2 = new Detalle( { 
          producto: '6391cfa9d4fadf0399d14f53', 
-         promocion: '6391d064a3acb5669c378a9e'
+         promocion: '6391d064a3acb5669c378a9f'
      } );
-     detalle1.save()
-     detalle2.save()*/
+     detalle1.save();
+     detalle2.save();*/
     // promocion.save();
    /*  const promocion1 = new Promocion( { 
          nombre: 'Paquete 1', 

@@ -109,8 +109,11 @@ const moverEstado = async (req = request, res = response) => {
 }
 const postOneMensaje = async (req, res) => {
     const { id } = req.body;
+    console.log('id',id);
     const nuevo = new mongoose.Types.ObjectId(id);
+    console.log('idPros: ',nuevo);
     const mensaje = await Contacto.find({ idPros: nuevo }).populate('usuario');
+    console.log('mensaje: ',mensaje);
     let usuarios = [];
     let i = 0;
     while (i < mensaje.length) {

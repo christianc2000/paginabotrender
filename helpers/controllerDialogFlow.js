@@ -12,14 +12,16 @@ const Ingreso = require("../models/Ingreso");
 const request = require('request');
 const Pedido = require("../models/Pedido");
 const PedidoDetalle = require("../models/PedidoDetalle");
+//***********para usar con pusher***********
+const { getPedido, getMuchoPedido } = require('../controllers/pedido.controller');
 const Pusher = require("pusher");
-
+//**************************************** */
 const pusher = new Pusher({
-  appId: "1515676",
-  key: "9cb69b0c52d9af0d8ff3",
-  secret: "018d85ef6715f586ec53",
-  cluster: "us2",
-  useTLS: true
+    appId: "1515676",
+    key: "9cb69b0c52d9af0d8ff3",
+    secret: "018d85ef6715f586ec53",
+    cluster: "us2",
+    useTLS: true
 });
 
 
@@ -112,9 +114,7 @@ const Saludo = async (resultado, facebookId) => {
     // console.log("prospecto" + prospecto)
 
     let listar = '';
-    pusher.trigger("actualizar-channel", "actualizar-event", {
-        message: "hello world"
-      });
+
     if (prospecto) {
         listar = `Hola Buenas ${prospecto.nombre} ¿Usted necesita información o saber detalles de alquiler de mesas y silla?`
     } else {
@@ -416,6 +416,7 @@ const noConfirmacion = async (resultado, facebookId) => {
     const cliente = await Cliente.findOne({ facebookId });
     const existePedido = await Pedido.find({ cliente: { _id: cliente._id } });
     let mensaje = `Perfecto su compra tiene un total de ${existePedido[existePedido.length - 1].monto} quiere confirmar su carrito?`;
+    //Enviar por pusher
     return mensaje;
 };
 const confirmacion = async (resultado, facebookId) => {
@@ -424,6 +425,8 @@ const confirmacion = async (resultado, facebookId) => {
     const cantidadPedidos = await Pedido.countDocuments({ cliente: cliente._id });
     const existePedido = await Pedido.find({ cliente: cliente._id }).sort({ $natural: -1 }).limit(1);
     if (cantidadPedidos > 1) {
+
+        //getPedido, getOneCliente, getMuchoPedido
         prospecto.estado = 4;
     } else {
         prospecto.estado = 3;
@@ -432,6 +435,11 @@ const confirmacion = async (resultado, facebookId) => {
     existePedido[0].confirmado = true;
     existePedido[0].save();
     // console.log('--------------confirmar');
+
+    pusher.trigger("my-channel", "my-event", {
+        clientea: getPedido,
+        clienteh: getMuchoPedido
+    });
     return resultado.fulfillmentText;
 }
 const pedirNombre = async (resultado, facebookId) => {
