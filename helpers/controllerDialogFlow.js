@@ -436,7 +436,7 @@ const confirmacion = async (resultado, facebookId) => {
     existePedido[0].save();
     // console.log('--------------confirmar');
 
-    pusher.trigger("my-channel", "my-event", {
+    pusher.trigger("actualizar-channel", "actualizar-event", {
         clientea: getPedido,
         clienteh: getMuchoPedido
     });
