@@ -435,11 +435,12 @@ const confirmacion = async (resultado, facebookId) => {
     existePedido[0].confirmado = true;
     existePedido[0].save();
     // console.log('--------------confirmar');
-
+ /*   console.log(getPedido);
     pusher.trigger("actualizar-channel", "actualizar-event", {
         clientea: getPedido,
         clienteh: getMuchoPedido
     });
+    */
     return resultado.fulfillmentText;
 }
 const pedirNombre = async (resultado, facebookId) => {
