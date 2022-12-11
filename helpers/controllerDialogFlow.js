@@ -13,7 +13,6 @@ const request = require('request');
 const Pedido = require("../models/Pedido");
 const PedidoDetalle = require("../models/PedidoDetalle");
 //***********para usar con pusher***********
-const { getPedido, getMuchoPedido } = require('../controllers/pedido.controller');
 const Pusher = require("pusher");
 //**************************************** */
 const pusher = new Pusher({
@@ -23,7 +22,28 @@ const pusher = new Pusher({
     cluster: "us2",
     useTLS: true
 });
-
+const getPedido = async() => {
+    let pedidos = [];
+    let total = await Cliente.find().populate('idPros');
+    let i = 0;
+    while ( i < total.length ) {
+        let inicial = total[i];
+        if ( inicial.idPros.estado === 3 ) {
+            let [ numeroVeces, fechaUltima ] = await Promise.all([
+                Pedido.countDocuments({ cliente: inicial._id }),
+                Pedido.find({ cliente: inicial._id }).sort( { $natural: -1 } ).limit( 1 ),
+            ]) 
+            let objProspecto = {
+                cliente: inicial,
+                numeroVeces,
+                fechaUltima
+            };
+            pedidos.push( objProspecto );
+        }
+        i++;
+    }
+    return pedidos;
+}
 
 const controllerDialogFlow = async (resultado, senderId) => {
     let peticion = {};
@@ -437,12 +457,11 @@ const confirmacion = async (resultado, facebookId) => {
    // const tercero=getPedido();
     //console.log(tercero);
     // console.log('--------------confirmar');
- /*   console.log(getPedido);
+ //   console.log(getPedido);
     pusher.trigger("actualizar-channel", "actualizar-event", {
-        clientea: getPedido,
-        clienteh: getMuchoPedido
+        clientea: await getPedido()
     });
-    */
+    
     return resultado.fulfillmentText;
 }
 const pedirNombre = async (resultado, facebookId) => {
