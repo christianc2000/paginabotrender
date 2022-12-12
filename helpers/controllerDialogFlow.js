@@ -458,10 +458,10 @@ const confirmacion = async (resultado, facebookId) => {
     //console.log(tercero);
     // console.log('--------------confirmar');
  //   console.log(getPedido);
-    pusher.trigger("actualizar-channel", "actualizar-event", {
-        clientea: await getPedido()
-    });
-    
+   
+ pusher.trigger("actualizar-channel", "actualizar-event", {
+   descripcion: 'nuevo pedido'
+});
     return resultado.fulfillmentText;
 }
 const pedirNombre = async (resultado, facebookId) => {
