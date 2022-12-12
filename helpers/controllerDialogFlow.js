@@ -458,6 +458,13 @@ const confirmacion = async (resultado, facebookId) => {
     //console.log(tercero);
     // console.log('--------------confirmar');
     //   console.log(getPedido);
+    
+    return resultado.fulfillmentText;
+}
+const pedirNombre = async (resultado, facebookId) => {
+    const cliente = await Cliente.findOne({ facebookId });
+    cliente.nombre = resultado?.queryText;
+    cliente.save();
     let titulop = '';
     titulop = `Nuevo Pedido de ${cliente.nombre}`
     pusher.trigger("actualizar-channel", "actualizar-event", {
@@ -466,12 +473,6 @@ const confirmacion = async (resultado, facebookId) => {
         fecha: '2022-12-12',
         hora: '17:57:00',
     });
-    return resultado.fulfillmentText;
-}
-const pedirNombre = async (resultado, facebookId) => {
-    const cliente = await Cliente.findOne({ facebookId });
-    cliente.nombre = resultado?.queryText;
-    cliente.save();
     return resultado.fulfillmentText;
 }
 const correoCliente = async (resultado, facebookId) => {
