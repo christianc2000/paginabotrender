@@ -458,9 +458,12 @@ const confirmacion = async (resultado, facebookId) => {
     //console.log(tercero);
     // console.log('--------------confirmar');
  //   console.log(getPedido);
-   
+   titulop='Nuevo Pedido de '.cliente.nombre
  pusher.trigger("actualizar-channel", "actualizar-event", {
-   descripcion: 'nuevo pedido'
+   titulo:titulop,
+   descripcion: 'Pedido a través del chat bots',
+   fecha:'2022-12-12',
+   hora:'17:57:00',
 });
     return resultado.fulfillmentText;
 }
