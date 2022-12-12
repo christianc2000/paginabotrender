@@ -22,23 +22,23 @@ const pusher = new Pusher({
     cluster: "us2",
     useTLS: true
 });
-const getPedido = async() => {
+const getPedido = async () => {
     let pedidos = [];
     let total = await Cliente.find().populate('idPros');
     let i = 0;
-    while ( i < total.length ) {
+    while (i < total.length) {
         let inicial = total[i];
-        if ( inicial.idPros.estado === 3 ) {
-            let [ numeroVeces, fechaUltima ] = await Promise.all([
+        if (inicial.idPros.estado === 3) {
+            let [numeroVeces, fechaUltima] = await Promise.all([
                 Pedido.countDocuments({ cliente: inicial._id }),
-                Pedido.find({ cliente: inicial._id }).sort( { $natural: -1 } ).limit( 1 ),
-            ]) 
+                Pedido.find({ cliente: inicial._id }).sort({ $natural: -1 }).limit(1),
+            ])
             let objProspecto = {
                 cliente: inicial,
                 numeroVeces,
                 fechaUltima
             };
-            pedidos.push( objProspecto );
+            pedidos.push(objProspecto);
         }
         i++;
     }
@@ -454,17 +454,18 @@ const confirmacion = async (resultado, facebookId) => {
     prospecto.save();
     existePedido[0].confirmado = true;
     existePedido[0].save();
-   // const tercero=getPedido();
+    // const tercero=getPedido();
     //console.log(tercero);
     // console.log('--------------confirmar');
- //   console.log(getPedido);
-   titulop='Nuevo Pedido de '.cliente.nombre
- pusher.trigger("actualizar-channel", "actualizar-event", {
-   titulo:titulop,
-   descripcion: 'Pedido a través del chat bots',
-   fecha:'2022-12-12',
-   hora:'17:57:00',
-});
+    //   console.log(getPedido);
+    let titulop = '';
+    titulop = `Nuevo Pedido de ${cliente.nombre}`
+    pusher.trigger("actualizar-channel", "actualizar-event", {
+        titulo: titulop,
+        descripcion: 'Pedido a través del chat bots',
+        fecha: '2022-12-12',
+        hora: '17:57:00',
+    });
     return resultado.fulfillmentText;
 }
 const pedirNombre = async (resultado, facebookId) => {
