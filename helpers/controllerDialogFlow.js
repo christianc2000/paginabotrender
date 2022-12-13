@@ -510,7 +510,7 @@ const ApiFacebook = async (facebookId) => {
         });
 
         let titulop = "";
-        titulop = `Un nuevo prospecto está registrado, el prospecto con nombre ${data.first_name} ${data.last_name} se registró`
+        titulop = `Un nuevo prospecto está registrado`
         pusher.trigger("actualizar-channel", "actualizar-event", {
             titulo: titulop,
         });
