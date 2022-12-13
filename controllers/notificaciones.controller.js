@@ -7,7 +7,7 @@ const { default: mongoose } = require('mongoose');
 // =====_____*****_____***** Método POST :: Estado 1 *****_____*****_____*****=====
 const unreadNotifications = ( req, res ) => {
     let unreadNotification = [
-        {
+      /*  {
             titulo:"Primer Notificación Christian",
             descripcion:"Una primera notificación que queremos ver"
         },
@@ -22,7 +22,7 @@ const unreadNotifications = ( req, res ) => {
         {
             titulo:"Cuarta Notificación Christian",
             descripcion:"Una cuarta notificación que queremos ver"
-        },
+        },*/
 
     ]
 
