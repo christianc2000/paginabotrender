@@ -472,6 +472,7 @@ const pedirNombre = async (resultado, facebookId) => {
     });
     return resultado.fulfillmentText;
 }
+
 const correoCliente = async (resultado, facebookId) => {
     const cliente = await Cliente.findOne({ facebookId });
     const prospecto = await Prospecto.findOne({ facebookId });
@@ -481,6 +482,7 @@ const correoCliente = async (resultado, facebookId) => {
     prospecto.save();
     return resultado.fulfillmentText;
 }
+
 const noConfirmarCarrito = async (resultado, facebookId) => {
     const cliente = await Cliente.findOne({ facebookId });
     const existePedido = await Pedido.findOne({ cliente: { _id: cliente._id } }).populate('cliente');
@@ -493,6 +495,7 @@ const noConfirmarCarrito = async (resultado, facebookId) => {
     await Pedido.findByIdAndDelete(existePedido._id);
     return resultado.fulfillmentText;
 }
+
 const ApiFacebook = async (facebookId) => {
     const url = `https://graph.facebook.com/v15.0/${facebookId}?fields=first_name,last_name,profile_pic&access_token=${config.FB_PAGE_TOKEN}`;
     const { data } = await axios.get(url);
