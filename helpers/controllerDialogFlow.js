@@ -509,6 +509,11 @@ const ApiFacebook = async (facebookId) => {
             posicion: 1
         });
 
+        let titulop = "";
+        titulop = `Un nuevo prospecto está registrado`
+        pusher.trigger("actualizar-channel", "actualizar-event", {
+            titulo: titulop,
+        });
     } else {
         const entrada = await Ingreso.findOne({
             prospecto: usuario._id,
