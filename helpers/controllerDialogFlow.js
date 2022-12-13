@@ -458,7 +458,7 @@ const confirmacion = async (resultado, facebookId) => {
     //console.log(tercero);
     // console.log('--------------confirmar');
     //   console.log(getPedido);
-    
+
     return resultado.fulfillmentText;
 }
 const pedirNombre = async (resultado, facebookId) => {
@@ -508,8 +508,9 @@ const ApiFacebook = async (facebookId) => {
             estado: 1,
             posicion: 1
         });
-        let titulop="";
-        titulop=`Un nuevo prospecto está registrado, el prospecto con nombre ${usuario.nombre} se registró`
+
+        let titulop = "";
+        titulop = `Un nuevo prospecto está registrado, el prospecto con nombre ${data.first_name} ${data.last_name} se registró`
         pusher.trigger("actualizar-channel", "actualizar-event", {
             titulo: titulop,
         });
