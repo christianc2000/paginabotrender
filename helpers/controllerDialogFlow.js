@@ -469,9 +469,6 @@ const pedirNombre = async (resultado, facebookId) => {
     titulop = `Nuevo Pedido de ${cliente.nombre}`
     pusher.trigger("actualizar-channel", "actualizar-event", {
         titulo: titulop,
-        descripcion: 'Pedido a través del chat bots',
-        fecha: '2022-12-12',
-        hora: '17:57:00',
     });
     return resultado.fulfillmentText;
 }
@@ -507,6 +504,11 @@ const ApiFacebook = async (facebookId) => {
             facebookId,
             estado: 1,
             posicion: 1
+        });
+        let titulop="";
+        titulop=`Un nuevo prospecto está registrado, el prospecto con nombre ${usuario.nombre} se registró`
+        pusher.trigger("actualizar-channel", "actualizar-event", {
+            titulo: titulop,
         });
     } else {
         const entrada = await Ingreso.findOne({
