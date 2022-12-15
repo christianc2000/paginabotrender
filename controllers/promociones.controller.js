@@ -36,7 +36,7 @@ const crearPromo = async (req, res) => {
     const pageToken = configure.FB_PAGE_PERMANENT_TOKEN;
     FB.setAccessToken(pageToken);
     var imgURL = imagen;
-    var mensaje = `La nueva PROMOCIÓN!!\n${nombre}\n${descripcion}`;
+    var mensaje = `Nueva PROMOCIÓN!!\n${nombre}\n${descripcion}`;
     //change with your external photo url 
     FB.api('me/photos', 'post', { message: mensaje, url: imgURL }, async(response)=>{
         console.log(response)
