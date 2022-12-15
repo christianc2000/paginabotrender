@@ -16,63 +16,80 @@ const obtenerTodos = async (req, res) => {
     });
 }
 const crearPromo = async (req, res) => {
-    const { nombre, descuento, descripcion, cantidadSillas, cantidadMesas, producto,imagen } = req.body;
+    const { nombre, descuento, descripcion, cantidadSillas, cantidadMesas, producto, imagen } = req.body;
+    let post_id = "";
     // cloudinary
     //let image = null;
     // req.files.- Información de la imagen que se ha subido
     // console.log(req.files?.image);
 
-   /* if (req.files?.image) {
-         console.log(req.files.image.tempFilePath)
-        const result = await uploadImage(req.files.image.tempFilePath);
-        // Elimine las imagenes del servidor
-        await fs.remove(req.files.image.tempFilePath);
-        image = {
-            url: result.secure_url,
-            public_id: result.public_id,
-        };
-    }*/
-    const fecha = new Date().toLocaleDateString('es-ES', {
-        timeZone: 'America/La_Paz',
-    });
-    const nuevaPromocion = new Promocion({
-        nombre,
-        descuento,
-        descripcion,
-        fecha,
-        cantidadSillas,
-        cantidadMesas,
-        imagen
-    });
-    await nuevaPromocion.save();
-    const detallePromocion = new Detalle({
-        producto,
-        promocion: nuevaPromocion._id
-    });
-    await detallePromocion.save();
+    /* if (req.files?.image) {
+          console.log(req.files.image.tempFilePath)
+         const result = await uploadImage(req.files.image.tempFilePath);
+         // Elimine las imagenes del servidor
+         await fs.remove(req.files.image.tempFilePath);
+         image = {
+             url: result.secure_url,
+             public_id: result.public_id,
+         };
+     }*/
     const pageToken = configure.FB_PAGE_PERMANENT_TOKEN;
-
     FB.setAccessToken(pageToken);
     var imgURL = imagen;
-    var mensaje=`La nueva PROMOCIÓN!!\n${nombre}\n${descripcion}`;
+    var mensaje = `La nueva PROMOCIÓN!!\n${nombre}\n${descripcion}`;
     //change with your external photo url 
-    FB.api('me/photos', 'post', { message: mensaje, url: imgURL }, function (response) {
+    FB.api('me/photos', 'post', { message: mensaje, url: imgURL }, async(response)=>{
         console.log(response)
         if (!response || response.error) {
             console.log('Error occured');
         } else {
+            post_id = response.id;
             console.log('Post ID: ' + response.id);
         }
+        const fecha = new Date().toLocaleDateString('es-ES', {
+            timeZone: 'America/La_Paz',
+        });
+        const nuevaPromocion = new Promocion({
+            nombre,
+            descuento,
+            descripcion,
+            fecha,
+            cantidadSillas,
+            cantidadMesas,
+            imagen,
+            postId: post_id
+        });
+        console.log('nuevaPromocion: '+nuevaPromocion._id);
+        await nuevaPromocion.save();
+        const detallePromocion = new Detalle({
+            producto,
+            promocion: nuevaPromocion._id
+        });
+        await detallePromocion.save();
+        res.json({
+            msg: 'creado exitosamente'
+        });
     });
-    res.json({
-        msg: 'creado exitosamente',
-        nuevaPromocion,
-    });
+ 
 }
+
 const eliminarPromo = async (req, res) => {
     const { id } = req.params;
+    console.log('id promo: '+id);
     const detalle = await Detalle.findOne({ _id: id });
     const promocion = await Promocion.findOne({ _id: detalle.promocion });
+    const pageToken = configure.FB_PAGE_PERMANENT_TOKEN;
+
+    FB.setAccessToken(pageToken);
+    var postId = promocion.postId;
+console.log('postId: '+postId);
+    FB.api(postId, 'delete', function (res) {
+        if (!res || res.error) {
+            console.log(!res ? 'error occurred' : res.error);
+            return;
+        }
+        console.log('Post was deleted');
+    });
     await detalle.deleteOne();
     await promocion.deleteOne();
     res.json({

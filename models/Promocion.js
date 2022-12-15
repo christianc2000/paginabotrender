@@ -23,7 +23,9 @@ const PromocionSchema = Schema({
     },
     imagen: {
         type: String,
-       
+    },
+    postId:{
+        type:String,
     },
     estado: {
         type: Boolean,
