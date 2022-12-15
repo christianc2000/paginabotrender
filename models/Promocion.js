@@ -21,6 +21,10 @@ const PromocionSchema = Schema({
     cantidadMesas: {
         type: String
     },
+    imagen: {
+        type: String,
+       
+    },
     estado: {
         type: Boolean,
         default: true

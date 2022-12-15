@@ -7,5 +7,7 @@ module.exports = {
     GOOGLE_PROJECT_ID: process.env.GOOGLE_PROJECT_ID || "",
     DF_LANGUAGE_CODE: process.env.DF_LANGUAGE_CODE || "es",
     GOOGLE_CLIENT_EMAIL: process.env.GOOGLE_CLIENT_EMAIL || "",
-    GOOGLE_PRIVATE_KEY: process.env.GOOGLE_PRIVATE_KEY || ""
+    GOOGLE_PRIVATE_KEY: process.env.GOOGLE_PRIVATE_KEY || "",
+    PAGE_ID:process.env.PAGE_ID||"",
+    FB_PAGE_PERMANENT_TOKEN:process.env.FB_PAGE_PERMANENT_TOKEN||"",
 };

@@ -11,6 +11,7 @@ const Pedido = require('../models/Pedido');
 const { default: mongoose } = require('mongoose');
 
 const test = ( req, res ) => {
+   
     // console.log( typeof new Date().toLocaleDateString() );
     /* const detalle1 = new Detalle( { 
          producto: '6391cfa9d4fadf0399d14f52', 
